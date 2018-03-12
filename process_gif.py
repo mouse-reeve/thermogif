@@ -1,11 +1,11 @@
 ''' parse an animated gif for thermal printing '''
-# from printer import ThermalPrinter
+from printer import ThermalPrinter
 from PIL import Image
 import sys
 
 GRAYSCALE_CHARS = ['  ','░░','▒▒','▓▓']
 
-# printer = ThermalPrinter(serialport='/dev/ttyAMA0')
+printer = ThermalPrinter(serialport='/dev/ttyAMA0')
 gif = Image.open(sys.argv[1])
 
 def l_to_char(l):
@@ -37,14 +37,10 @@ while frame < 10:
         values = list(converted.getdata())
         chars = list(map(l_to_char, values))
 
-        print(to_string(chars))
-
-        # import os
-        # converted.save(os.getcwd() + '/output/%d.bmp' % frame)
-
-        # print each frame
-        # printer.print_bitmap(data, w, h, True)
-        # printer.linefeed()
+        printer.print_text(to_string(chars))
+        printer.linefeed()
+        printer.linefeed()
+        printer.linefeed()
 
         frame += 1
     except EOFError:
