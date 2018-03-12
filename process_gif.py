@@ -3,7 +3,7 @@ from printer import ThermalPrinter
 from PIL import Image
 import sys
 
-printer = ThermalPrinter(serialport='dev/ttyAMA0')
+printer = ThermalPrinter(serialport='/dev/ttyAMA0')
 gif = Image.open(sys.argv[1])
 
 # separate out panels and process each one
