@@ -12,11 +12,17 @@ while frame < 10:
     try:
         # get the current frame
         gif.seek(frame)
+        converted = gif
 
+        # rotate image
+        converted = converted.rotate(90, expand=True)
         # resize image to printer width
         base_width = 384
-        height = int(gif.size[1] * (base_width / float(gif.size[0])))
-        converted = gif.resize((base_width, height), Image.ANTIALIAS)
+
+        size = converted.size
+        print(size)
+        height = int(size[1] * (base_width / float(size[0])))
+        converted = converted.resize((base_width, height), Image.ANTIALIAS)
 
         # convert the image to black and white
         converted = converted.convert('1', dither=3)
