@@ -3,7 +3,7 @@ from printer import ThermalPrinter
 from PIL import Image
 import sys
 
-GRAYSCALE_CHARS = ['  ','░░','▒▒','▓▓']
+GRAYSCALE_CHARS = ['  ', '\xB0\xB0','\xB1\xB1','\xB2\xB2']
 
 printer = ThermalPrinter(serialport='/dev/ttyAMA0')
 gif = Image.open(sys.argv[1])
@@ -28,7 +28,7 @@ while frame < 10:
         gif.seek(frame)
 
         # resize image to printer width
-        base_width = 16
+        base_width = 20
         height = int(gif.size[1] * (base_width / float(gif.size[0])))
         converted = gif.resize((base_width, height), Image.ANTIALIAS)
 
@@ -37,6 +37,7 @@ while frame < 10:
         values = list(converted.getdata())
         chars = list(map(l_to_char, values))
 
+        printer.font_b()
         printer.print_text(to_string(chars))
         printer.linefeed()
         printer.linefeed()
