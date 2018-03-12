@@ -1,8 +1,9 @@
 ''' parse an animated gif for thermal printing '''
 import os
 from PIL import Image
+import sys
 
-gif = Image.open('cat.gif')
+gif = Image.open(sys.argv[1])
 
 # separate out panels and process each one
 frame = 0
